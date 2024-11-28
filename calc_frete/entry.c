@@ -2,7 +2,7 @@
 *   Shipping calculator source code
 *   by Victor Maciel, Daniel Araujo, Lucas Simoes and Miguel Leite
 *   Created 21/10/24
-*   Last Edit: 26/11/24
+*   Last Edit: 27/11/24
 *
 *   This program calculates shipping costs for various items. It allows users to add items to a cart, view the cart, and calculate the shipping cost based on the total weight of the items and the delivery region.
 *
@@ -62,7 +62,7 @@
 
 // Defines
 
-#define     VERSION                         "1.0.3"
+#define     VERSION                         "1.0.4"
 // #define     DEBUG
 #define     MAX_INPUT_TEXT                  (64+1)                      // 64 characters + 1 for null terminator
 
@@ -175,16 +175,16 @@ int main()
     #if __WIN32
         if(!setlocale(LC_ALL, "portuguese"))
         {
-            printf("Erro ao configurar locale. Verifique as configuraÁıes do sistema.\n");
+            printf("Erro ao configurar locale. Verifique as configura√ß√µes do sistema.\n");
         }
     #else
         if(!setlocale(LC_ALL, "pt_BR.UTF-8"))
         {
-            printf("Erro ao configurar locale. Verifique as configuraÁıes do sistema.\n");
+            printf("Erro ao configurar locale. Verifique as configura√ß√µes do sistema.\n");
         }
     #endif
         
-    printf("Calculadora de Frete - Vers„o %s\n", VERSION);
+    printf("Calculadora de Frete - Vers√£o %s\n", VERSION);
     
     ShowCommands();
 
@@ -257,7 +257,7 @@ void ScanPrompt(char *inputtext)
 
         if(!token || strlen(token) == 0)
         {
-            printf("Comando inv·lido! Especifique o item a ser removido.\n");
+            printf("Comando inv√°lido! Especifique o item a ser removido.\n");
             return;
         }
 
@@ -292,7 +292,7 @@ void ScanPrompt(char *inputtext)
                 } 
             }
         }
-        printf("Item %s n„o est· no carrinho!\n", token);
+        printf("Item %s n√£o est√° no carrinho!\n", token);
         return;
     }
     else if (strstr(inputtext, "adicionar"))
@@ -302,7 +302,7 @@ void ScanPrompt(char *inputtext)
 
         if(!token || strlen(token) == 0)
         {
-            printf("Comando inv·lido! Especifique o item a ser adicionado.\n");
+            printf("Comando inv√°lido! Especifique o item a ser adicionado.\n");
             return;
         }
 
@@ -314,12 +314,12 @@ void ScanPrompt(char *inputtext)
                 return;
             }
         }
-        printf("Item %s n„o existente! Digite \"Itens\" para visualizar os itens disponÌveis.\n", token);
+        printf("Item %s n√£o existente! Digite \"Itens\" para visualizar os itens dispon√≠veis.\n", token);
         return;
     }
     else
     {
-        printf("Comando inv·lido! Digite \"Comandos\" para visualizar os comandos disponÌveis.\n");
+        printf("Comando inv√°lido! Digite \"Comandos\" para visualizar os comandos dispon√≠veis.\n");
         return;
     }
 }
@@ -327,7 +327,7 @@ void ScanPrompt(char *inputtext)
 void ShowCommands()
 {
     printf("\n==================== COMANDOS ====================\n");
-    printf("-> \"Itens\"       - Ver lista de itens disponÌveis.\n");
+    printf("-> \"Itens\"       - Ver lista de itens dispon√≠veis.\n");
     printf("-> \"Carrinho\"    - Ver os itens no carrinho.\n");
     printf("-> \"Adicionar X\" - Adicionar item (Ex: Adicionar TV).\n");
     printf("-> \"Remover X\"   - Remover item (Ex: Remover TV).\n");
@@ -343,7 +343,7 @@ void AddItemToCart(unsigned char itemid)
 
     if(!IsValidItemId(itemid))
     {
-        printf("Erro: ID do item inv·lido!\n");
+        printf("Erro: ID do item inv√°lido!\n");
         return;
     }
 
@@ -390,19 +390,19 @@ void ShowItems(const unsigned char itemid)
         {
             if(IsValidItemId(i))
             {
-                printf("ID: %d, Nome: %s, PreÁo: R$ %.2f, Peso: %.2fg, Estoque: %d\n",
+                printf("ID: %d, Nome: %s, Pre√ßo: R$ %.2f, Peso: %.2fg, Estoque: %d\n",
                        i, g_Items[i].itemName, g_Items[i].itemPrice, g_Items[i].itemWeight, g_Items[i].itemQuantity);
             }
         }
     }
     else if(IsValidItemId(itemid))
     {
-        printf("ID: %d, Nome: %s, PreÁo: R$ %.2f, Peso: %.2fg, Estoque: %d\n",
+        printf("ID: %d, Nome: %s, Pre√ßo: R$ %.2f, Peso: %.2fg, Estoque: %d\n",
                itemid, g_Items[itemid].itemName, g_Items[itemid].itemPrice, g_Items[itemid].itemWeight, g_Items[itemid].itemQuantity);
     }
     else
     {
-        printf("Erro: Item com ID %d n„o encontrado.\n", itemid);
+        printf("Erro: Item com ID %d n√£o encontrado.\n", itemid);
     }
     printf("===============================================\n");
 }
@@ -464,7 +464,7 @@ void CalculateShipping()
     } 
     else 
     {
-        printf("Nenhum item no carrinho, frete n„o ser· cobrado.\n");
+        printf("Nenhum item no carrinho, frete n√£o ser√° cobrado.\n");
     }
 
     printf("\n==================== RESUMO DA COMPRA ====================\n");
@@ -472,15 +472,21 @@ void CalculateShipping()
     {
         if(g_Cart[i][0] != INVALID_ITEM_ID)
         {
-            printf("CÛdigo do produto: %d\n", g_Cart[i][0]);
+            printf("C√≥digo do produto: %d\n", g_Cart[i][0]);
             printf("Nome do produto: %s\n", g_Items[g_Cart[i][0]].itemName);
             printf("Peso do produto: %.2fg\n", g_Items[g_Cart[i][0]].itemWeight);
-            printf("PreÁo do produto: R$ %.2f\n", g_Items[g_Cart[i][0]].itemPrice);
+            printf("Pre√ßo do produto: R$ %.2f\n", g_Items[g_Cart[i][0]].itemPrice);
         }
     }
-    
-    printf("Escolha a regi„o de entrega ([1] Regi„o Sul; [2] Regi„o Sudeste; [3] Regi„o Norte; [4] Regi„o Nordeste): ");
+
+    select_region:
+    DEBUG_LOG("inputtext: %s\n", inputtext);
+    memset(inputtext, 0, MAX_INPUT_TEXT);
+    DEBUG_LOG("inputtext: %s\n", inputtext);
+    printf("Escolha a regi√£o de entrega ([1] Regi√£o Sul; [2] Regi√£o Sudeste; [3] Regi√£o Norte; [4] Regi√£o Nordeste): ");
+    DEBUG_LOG("inputtext: %s\n", inputtext);
     ScanPrompt(inputtext);
+    DEBUG_LOG("inputtext: %s\n", inputtext);
     region = atoi(inputtext);
 
     float shippingValue = 0.0f;
@@ -488,27 +494,28 @@ void CalculateShipping()
     {
         case 1:
             shippingValue = shippingValueSouth;
-            printf("Regi„o de entrega: Sul\n");
+            printf("Regi√£o de entrega: Sul\n");
             break;
         case 2:
             shippingValue = shippingValueSoutheast;
-            printf("Regi„o de entrega: Sudeste\n");
+            printf("Regi√£o de entrega: Sudeste\n");
             break;
         case 3:
             shippingValue = shippingValueNorth;
-            printf("Regi„o de entrega: Norte\n");
+            printf("Regi√£o de entrega: Norte\n");
             break;
         case 4:
             shippingValue = shippingValueNortheast;
-            printf("Regi„o de entrega: Nordeste\n");
+            printf("Regi√£o de entrega: Nordeste\n");
             break;
         default:
-            printf("Regi„o inv·lida!\n");
+            printf("Regi√£o inv√°lida!\n");
+            goto select_region;
             return;
     }
 
-    printf("PreÁo do frete: R$ %.2f\n", shippingValue);
-    printf("PreÁo total da compra: R$ %.2f\n", totalValue + shippingValue);
+    printf("Pre√ßo do frete: R$ %.2f\n", shippingValue);
+    printf("Pre√ßo total da compra: R$ %.2f\n", totalValue + shippingValue);
 
     time_t now = time(NULL);
     struct tm *t = localtime(&now);
